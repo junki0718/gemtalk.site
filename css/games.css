@@ -1,0 +1,902 @@
+/* ========================================================
+   gemtalk PLAYGROUND - Game Component Stylesheets
+   Dedicated styles for each of the 15 mini-games
+   ======================================================== */
+
+/* Common Game Layout Elements */
+.game-flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.game-controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f1f5f9;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.stat-pill strong {
+  color: var(--primary-purple);
+}
+
+/* ========================================================
+   1. 사다리 타기 (Ladder Game)
+   ======================================================== */
+.ladder-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.ladder-columns-input {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.85rem;
+}
+
+.ladder-col-field {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ladder-col-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary-purple);
+  text-transform: uppercase;
+}
+
+.ladder-input {
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  outline: none;
+}
+.ladder-input:focus {
+  border-color: var(--primary-purple);
+}
+
+.ladder-canvas-container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+#ladderCanvas {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 1px var(--border-color);
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.ladder-results-table {
+  width: 100%;
+  max-width: 600px;
+  margin: 1.5rem auto 0 auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+.ladder-results-table th, .ladder-results-table td {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+.ladder-results-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+/* ========================================================
+   2. 룰렛 돌리기 (Roulette)
+   ======================================================== */
+.roulette-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.roulette-wheel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#rouletteCanvas {
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  max-width: 100%;
+}
+
+.roulette-pointer {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 32px solid #ef4444;
+  z-index: 10;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.roulette-center-cap {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: var(--primary-purple);
+  pointer-events: none;
+}
+
+.roulette-controls {
+  flex: 1;
+  min-width: 280px;
+  max-width: 380px;
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.roulette-item-list {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.roulette-item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.roulette-color-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ========================================================
+   3. 제비뽑기 (Drawing Lots)
+   ======================================================== */
+.draw-lots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.lot-card {
+  height: 130px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-bounce);
+  perspective: 1000px;
+  user-select: none;
+  position: relative;
+}
+
+.lot-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+
+.lot-card.opened {
+  background: #ffffff;
+  color: var(--text-primary);
+  border: 2px solid var(--primary-purple);
+  box-shadow: var(--shadow-sm);
+  cursor: default;
+}
+
+.lot-card.opened.winner {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.lot-participant-label {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  margin-bottom: 0.25rem;
+}
+
+/* ========================================================
+   4. YES or NO
+   ======================================================== */
+.yesno-box {
+  width: 100%;
+  max-width: 540px;
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.yesno-question-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+.yesno-question-input:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+}
+
+.yesno-orb-wrap {
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 2rem auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(49, 46, 129, 0.35);
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.yesno-orb-text {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+.yesno-orb-wrap.spinning {
+  animation: orbSpin 0.7s infinite linear;
+}
+
+@keyframes orbSpin {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(0.95); }
+}
+
+.yesno-commentary {
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-height: 2.2rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================================
+   5. 반응속도 테스트 (Reaction Time)
+   ======================================================== */
+.reaction-screen {
+  width: 100%;
+  max-width: 650px;
+  height: 380px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  padding: 2rem;
+  transition: background-color 0.1s ease;
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.reaction-screen.state-wait {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.reaction-screen.state-ready {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.reaction-screen.state-result {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.reaction-screen.state-early {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.reaction-screen h2 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.reaction-screen p {
+  font-size: 1.15rem;
+  opacity: 0.95;
+}
+
+/* ========================================================
+   6. 타자 속도 테스트 (Typing Test)
+   ======================================================== */
+.typing-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.typing-target-box {
+  background: #f8fafc;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  font-size: 1.35rem;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.25rem;
+  user-select: none;
+  font-weight: 600;
+}
+
+.typing-char.correct {
+  color: #10b981;
+}
+.typing-char.incorrect {
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 2px;
+}
+.typing-char.current {
+  background: #e0e7ff;
+  border-bottom: 3px solid var(--primary-purple);
+}
+
+.typing-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1.2rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  font-family: inherit;
+  font-weight: 600;
+}
+.typing-input:focus {
+  border-color: var(--primary-purple);
+}
+
+/* ========================================================
+   7. 색깔 맞추기 (Color Match)
+   ======================================================== */
+.colormatch-word-display {
+  font-size: 4rem;
+  font-weight: 900;
+  padding: 2.5rem 0;
+  text-align: center;
+  letter-spacing: 0.1em;
+  user-select: none;
+}
+
+.colormatch-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.colormatch-btn {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-color);
+  background: white;
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.colormatch-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-purple);
+}
+
+/* ========================================================
+   8. 숫자 순서 맞추기 (Schulte Grid)
+   ======================================================== */
+.schulte-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 440px;
+  margin: 1.5rem auto;
+}
+
+.schulte-cell {
+  aspect-ratio: 1;
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.schulte-cell:hover {
+  border-color: var(--primary-purple-light);
+  transform: scale(1.05);
+}
+
+.schulte-cell.clicked {
+  background: #f1f5f9;
+  color: #cbd5e1;
+  border-color: transparent;
+  pointer-events: none;
+  transform: scale(0.95);
+}
+
+/* ========================================================
+   9. 2048 Game
+   ======================================================== */
+.g2048-board {
+  width: 380px;
+  height: 380px;
+  background: #bbada0;
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+  position: relative;
+  user-select: none;
+  touch-action: none;
+  box-shadow: var(--shadow-md);
+}
+
+.g2048-cell {
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  transition: all 0.1s ease;
+}
+
+.tile-2 { background: #eee4da; color: #776e65; }
+.tile-4 { background: #ede0c8; color: #776e65; }
+.tile-8 { background: #f2b179; color: #f9f6f2; }
+.tile-16 { background: #f59563; color: #f9f6f2; }
+.tile-32 { background: #f67c5f; color: #f9f6f2; }
+.tile-64 { background: #f65e3b; color: #f9f6f2; }
+.tile-128 { background: #edcf72; color: #f9f6f2; font-size: 1.6rem; }
+.tile-256 { background: #edcc61; color: #f9f6f2; font-size: 1.6rem; }
+.tile-512 { background: #edc850; color: #f9f6f2; font-size: 1.6rem; }
+.tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 1.3rem; }
+.tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 1.3rem; box-shadow: 0 0 20px rgba(237, 194, 46, 0.7); }
+
+/* ========================================================
+   10. 가위바위보 (RPS)
+   ======================================================== */
+.rps-battle-arena {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.rps-fighter-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rps-fighter-badge {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.rps-hand-display {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 3px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.rps-choices-bar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.rps-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--border-color);
+  background: white;
+  font-size: 2.8rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-bounce);
+}
+.rps-btn:hover {
+  transform: translateY(-6px) scale(1.08);
+  border-color: var(--primary-purple);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================================
+   11. 카드 짝 맞추기 (Memory Match)
+   ======================================================== */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 440px;
+  margin: 1.5rem auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.memory-card:hover {
+  transform: scale(1.04);
+}
+
+.memory-card.flipped, .memory-card.matched {
+  background: #ffffff;
+  border: 2px solid var(--primary-purple);
+  box-shadow: var(--shadow-md);
+}
+
+.memory-card.matched {
+  border-color: #10b981;
+  background: #ecfdf5;
+  cursor: default;
+}
+
+/* ========================================================
+   12. 지뢰찾기 (Minesweeper)
+   ======================================================== */
+.minesweeper-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f1f5f9;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 440px;
+}
+
+.mines-board {
+  display: grid;
+  gap: 3px;
+  background: #cbd5e1;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  user-select: none;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.mine-cell {
+  width: 36px;
+  height: 36px;
+  background: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.mine-cell:hover {
+  background: #f8fafc;
+}
+
+.mine-cell.revealed {
+  background: #e2e8f0;
+  cursor: default;
+}
+
+.mine-cell.has-mine {
+  background: #fee2e2;
+}
+
+.mine-cell[data-count="1"] { color: #2563eb; }
+.mine-cell[data-count="2"] { color: #059669; }
+.mine-cell[data-count="3"] { color: #dc2626; }
+.mine-cell[data-count="4"] { color: #7c3aed; }
+.mine-cell[data-count="5"] { color: #b45309; }
+
+/* ========================================================
+   13. 초성 퀴즈 (Choseong Quiz)
+   ======================================================== */
+.choseong-box {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.choseong-category-badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-full);
+  background: #f5f3ff;
+  color: var(--primary-purple);
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.choseong-display {
+  font-size: 3.8rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.choseong-form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 440px;
+  margin: 0 auto 1.5rem auto;
+}
+
+/* ========================================================
+   14. 업다운 게임 (Up & Down)
+   ======================================================== */
+.updown-container {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.updown-range-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.updown-hint-display {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.updown-history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.updown-guess-chip {
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.updown-guess-chip.up {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.updown-guess-chip.down {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ========================================================
+   15. 밸런스 게임 (Balance Game)
+   ======================================================== */
+.balance-options-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 780px;
+  margin: 1.5rem auto;
+}
+
+.balance-card {
+  padding: 2.2rem 1.75rem;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  min-height: 260px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-bounce);
+}
+
+.balance-card.opt-a {
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  color: white;
+}
+.balance-card.opt-b {
+  background: linear-gradient(135deg, #ec4899, #f43f5e);
+  color: white;
+}
+
+.balance-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--shadow-xl);
+}
+
+.balance-card-text {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.45;
+  margin: auto 0;
+}
+
+.balance-percentage-bar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  height: 12px;
+  overflow: hidden;
+  margin-top: 1rem;
+  display: none;
+}
+
+.balance-percentage-fill {
+  height: 100%;
+  background: white;
+  border-radius: var(--radius-full);
+  width: 0%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.balance-percent-text {
+  font-size: 1.8rem;
+  font-weight: 900;
+  display: none;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .balance-options-wrap {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .balance-card {
+    min-height: 180px;
+    padding: 1.5rem 1.25rem;
+  }
+  .g2048-board {
+    width: 320px;
+    height: 320px;
+  }
+}

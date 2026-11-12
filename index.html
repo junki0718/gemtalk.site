@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>gemtalk PLAYGROUND - 온라인 미니게임 플랫폼</title>
+  <meta name="description" content="친구와 내기하고, 기록을 깨고, 언제 어디서나 바로 즐기는 15가지 캐주얼 온라인 미니게임 플랫폼">
+  
+  <!-- Favicon Emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/games.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas Particle Layer -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ========================================================
+       Top Header
+       ======================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <!-- Logo -->
+      <a class="logo-link" onclick="App.goHome()" title="홈으로 이동">
+        <div class="logo-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="6" width="20" height="12" rx="4"/>
+            <path d="M6 12h4m-2-2v4m9-2h.01m3 0h.01"/>
+          </svg>
+        </div>
+        <div class="logo-text-wrap">
+          <span class="brand-gemtalk">gemtalk</span>
+          <span class="brand-playground">PLAYGROUND</span>
+        </div>
+      </a>
+
+      <!-- Header Navigation -->
+      <nav class="header-nav">
+        <a class="nav-item active" onclick="App.goHome()">홈</a>
+        <a class="nav-item" href="#allGamesSection" onclick="if(App.currentGameId) App.goHome();">전체 게임</a>
+        <a class="nav-item" href="#popularSection" onclick="if(App.currentGameId) App.goHome();">인기 게임</a>
+        <a class="nav-item" href="#categoriesSection" onclick="if(App.currentGameId) App.goHome();">카테고리</a>
+      </nav>
+
+      <!-- Header Actions: Search, Sound, Random -->
+      <div class="header-actions">
+        <div class="search-bar-wrap">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="globalSearchInput" class="search-input" placeholder="게임 검색..." autocomplete="off">
+          <button id="searchClearBtn" class="search-clear-btn" title="검색어 지우기">✕</button>
+        </div>
+
+        <button id="globalSoundToggle" class="icon-btn" title="효과음 켜기/끄기">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+        </button>
+
+        <button class="btn btn-primary" style="padding:0.5rem 1rem; font-size:0.85rem;" onclick="App.startRandomGame()">
+          🎲 랜덤 게임
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       Main Content Wrapper
+       ======================================================== -->
+  <main class="main-wrapper">
+
+    <!-- VIEW 1: HOME DASHBOARD -->
+    <div id="homeView">
+      <!-- Hero Banner -->
+      <section class="hero-banner">
+        <!-- Abstract geometric decoration -->
+        <svg class="hero-bg-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#7c3aed" d="M47.7,-57.2C59.9,-46.3,66.8,-30.2,70.5,-13.4C74.2,3.4,74.7,20.8,67.3,34.8C59.9,48.7,44.7,59.1,28.4,65.2C12.1,71.3,-5.2,73,-21.5,68.4C-37.8,63.7,-53,52.7,-61.7,37.8C-70.3,23,-72.3,4.2,-68.8,-13.2C-65.3,-30.6,-56.3,-46.6,-43.3,-57.4C-30.2,-68.2,-13.1,-73.7,2.2,-76.3C17.5,-78.9,35.4,-68,47.7,-57.2Z" transform="translate(100 100)" />
+        </svg>
+
+        <div class="hero-badge">
+          <span>✨</span> 로그인 없이 즉시 플레이 가능
+        </div>
+        <h1 class="hero-title">
+          심심할 틈 없는 순간, <span class="highlight-purple">PLAYGROUND</span>
+        </h1>
+        <p class="hero-subtitle">
+          친구와 내기하고, 기록을 깨고, 새로운 재미를 발견하세요.<br>
+          회원가입 없이 링크 하나로 즐기는 15가지 고퀄리티 미니게임 플랫폼!
+        </p>
+        <div class="hero-actions">
+          <a href="#popularSection" class="btn btn-primary">
+            🔥 인기 게임 바로가기
+          </a>
+          <button class="btn btn-secondary" onclick="App.startRandomGame()">
+            🎲 랜덤 게임 시작
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            15개 미니게임 즉시 실행
+          </div>
+          <div class="hero-stat-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            복잡한 가입/로그인 없음
+          </div>
+          <div class="hero-stat-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            PC & 모바일 완벽 반응형
+          </div>
+          <div class="hero-stat-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            최고 기록 로컬 자동 저장
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Games Spotlight Section -->
+      <section id="popularSection" class="popular-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span>🔥</span> 인기 게임 추천
+            <span class="section-title-badge">HOT 5</span>
+          </h2>
+        </div>
+        <div class="popular-grid" id="popularGamesGrid"></div>
+      </section>
+
+      <!-- Category Tabs Section -->
+      <section id="categoriesSection" class="categories-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span>📂</span> 게임 카테고리
+          </h2>
+        </div>
+        <div class="category-tabs">
+          <button class="category-tab active" onclick="App.filterCategory('all', this)">
+            <span>모든 게임</span>
+            <span class="tab-count">15</span>
+          </button>
+          <button class="category-tab" onclick="App.filterCategory('random', this)">
+            <span>🎲 1. 랜덤 / 내기 게임</span>
+            <span class="tab-count">4</span>
+          </button>
+          <button class="category-tab" onclick="App.filterCategory('speed', this)">
+            <span>⚡ 2. 반응속도 / 기록 경쟁</span>
+            <span class="tab-count">4</span>
+          </button>
+          <button class="category-tab" onclick="App.filterCategory('brain', this)">
+            <span>🧠 3. 두뇌 / 캐주얼 게임</span>
+            <span class="tab-count">4</span>
+          </button>
+          <button class="category-tab" onclick="App.filterCategory('party', this)">
+            <span>🎉 4. 친구들과 함께하는 게임</span>
+            <span class="tab-count">3</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- All Games Grid -->
+      <section id="allGamesSection">
+        <div class="games-grid" id="allGamesGrid"></div>
+      </section>
+    </div>
+
+    <!-- VIEW 2: DEDICATED GAME PLAY VIEW -->
+    <div id="gameView" class="game-view-container">
+      <div class="game-view-header">
+        <div class="game-view-info">
+          <div class="game-view-icon" id="gameStageIcon">🎮</div>
+          <div>
+            <h2 class="game-view-title" id="gameStageTitle">게임 제목</h2>
+            <div class="game-view-category" id="gameStageCategory">카테고리</div>
+          </div>
+        </div>
+
+        <div class="game-view-controls">
+          <button class="btn btn-secondary" onclick="App.restartCurrentGame()" title="게임 다시 시작">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            다시 시작
+          </button>
+          <button class="btn btn-primary" onclick="App.goHome()" title="홈 화면으로 돌아가기">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            홈으로
+          </button>
+        </div>
+      </div>
+
+      <!-- Play Stage Card -->
+      <div class="game-stage-card">
+        <div class="game-instructions" id="gameStageInstructions"></div>
+        <div id="gameStageContainer" style="flex:1; width:100%;"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       Footer
+       ======================================================== -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-brand-title">gemtalk PLAYGROUND</div>
+        <div class="footer-brand-desc">
+          설치나 회원가입 없이 언제 어디서나 바로 즐기는 웹 미니게임 플랫폼 · Designed with Modern Casual UI
+        </div>
+      </div>
+      <div class="footer-actions">
+        <button class="footer-btn" onclick="App.resetAllRecords()">
+          🗑️ 내 최고 기록 초기화
+        </button>
+        <button class="footer-btn" onclick="App.startRandomGame()">
+          🎲 랜덤 게임 바로하기
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Games: Category 1 (랜덤 / 내기 게임) -->
+  <script src="js/games/ladder.js"></script>
+  <script src="js/games/roulette.js"></script>
+  <script src="js/games/draw.js"></script>
+  <script src="js/games/yesno.js"></script>
+
+  <!-- Games: Category 2 (반응속도 / 기록 경쟁) -->
+  <script src="js/games/reaction.js"></script>
+  <script src="js/games/typing.js"></script>
+  <script src="js/games/color.js"></script>
+  <script src="js/games/schulte.js"></script>
+
+  <!-- Games: Category 3 (두뇌 / 캐주얼 게임) -->
+  <script src="js/games/g2048.js"></script>
+  <script src="js/games/rps.js"></script>
+  <script src="js/games/memory.js"></script>
+  <script src="js/games/minesweeper.js"></script>
+
+  <!-- Games: Category 4 (친구들과 함께하는 게임) -->
+  <script src="js/games/choseong.js"></script>
+  <script src="js/games/updown.js"></script>
+  <script src="js/games/balance.js"></script>
+
+  <!-- Main Orchestrator -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
