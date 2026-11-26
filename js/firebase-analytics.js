@@ -1,8 +1,8 @@
 const firebaseConfig = {
-  apiKey: 'AIzaSyBvUv_4-d7d-8BGfiGam4Y_AJjiGAucktU',
-  projectId: 'gemtalksite',
-  appId: '1:475864689095:web:d49f58f9b5597e7e4ad1e2',
-  measurementId: 'G-ENXM5TXSE1',
+  apiKey: 'AIzaSyCnigbnykLGSouzKoI0RhSsDlH12NOHVOo',
+  projectId: 'gemtalksite1',
+  appId: '1:1039814011961:web:ef5ff70e8cb64fd914b1e8',
+  measurementId: 'G-P2HM5J8QWB',
 };
 
 if (window.location.hostname === 'jk0718.gemtalk.site') {
